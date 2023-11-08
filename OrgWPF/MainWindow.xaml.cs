@@ -34,11 +34,16 @@ namespace OrgWPF
             InitializeComponent();
             Betoltes("organizations-100000.csv");
             dgAdatok.ItemsSource = szervezetek;
-            cbOrszag.ItemsSource = szervezetek.Select(x => x.Country).OrderBy(x => x).Distinct().ToList();
-            
-            cbEv.ItemsSource = szervezetek.Select(x => x.Founded).OrderBy(x => x).Distinct().ToList();
+
+            List<string> szervOrszagLista = szervezetek.Select(x => x.Country).OrderBy(x => x).Distinct().ToList();
+            szervOrszagLista.Add("Minden ország");
+            cbOrszag.ItemsSource = szervOrszagLista;
+            List<int> szervEvLista = (szervezetek.Select(x => x.Founded).OrderBy(x => x).Distinct()).ToList();
+            szervEvLista.Add(0);
+            cbEv.ItemsSource = szervEvLista;
             
             lblOsszesDolgozo.Content = szervezetek.Sum(x => x.EmployeesNumber);
+
         }
 
         private void dgAdatok_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,13 +66,22 @@ namespace OrgWPF
             
                 var szurtLista = szervezetek.Where(x => x.Founded.ToString() == cbEv.SelectedItem.ToString()).ToList();
             
-            if (cbEv.SelectedIndex == cbEv.Items.Count - 1)
-            {
-                dgAdatok.ItemsSource = szervezetek;
-            }
-            else if (cbOrszag.SelectedIndex != -1 || cbOrszag.SelectedIndex == cbOrszag.Items.Count - 1)
+            
+            if (cbOrszag.SelectedIndex != -1 || cbOrszag.SelectedIndex == cbOrszag.Items.Count - 1)
             {
                 szurtLista = szervezetek.Where(x => x.Founded.ToString() == cbEv.SelectedItem.ToString() && x.Country.ToString() == cbOrszag.SelectedItem.ToString()).ToList();
+                dgAdatok.ItemsSource = szurtLista;
+                lblOsszesDolgozo.Content = szurtLista.Sum(x => x.EmployeesNumber);
+            }
+            else if (cbOrszag.SelectedIndex != cbOrszag.Items.Count - 1 && cbEv.SelectedIndex != cbEv.Items.Count - 1)
+            {
+                szurtLista = szervezetek.Where(x => x.Founded.ToString() == cbEv.SelectedItem.ToString()).ToList();
+                dgAdatok.ItemsSource = szurtLista;
+                lblOsszesDolgozo.Content = szurtLista.Sum(x => x.EmployeesNumber);
+            }
+            else if (cbOrszag.SelectedIndex != cbOrszag.Items.Count - 1 && cbEv.SelectedIndex == cbEv.Items.Count - 1)
+            {
+                szurtLista = szervezetek.Where(x => x.Country.ToString() == cbOrszag.SelectedItem.ToString()).ToList();
                 dgAdatok.ItemsSource = szurtLista;
                 lblOsszesDolgozo.Content = szurtLista.Sum(x => x.EmployeesNumber);
             }
@@ -82,9 +96,18 @@ namespace OrgWPF
         {
             var szurtLista = szervezetek.Where(x => x.Country.ToString() == cbOrszag.SelectedItem.ToString()).ToList();
             
-            if (cbOrszag.SelectedIndex == cbOrszag.Items.Count - 1)
+            
+            if (cbOrszag.SelectedIndex == cbOrszag.Items.Count - 1 && cbEv.SelectedIndex != cbEv.Items.Count - 1)
             {
-                dgAdatok.ItemsSource = szervezetek;
+                szurtLista = szervezetek.Where(x => x.Founded.ToString() == cbEv.SelectedItem.ToString()).ToList();
+                dgAdatok.ItemsSource = szurtLista;
+                lblOsszesDolgozo.Content = szurtLista.Sum(x => x.EmployeesNumber);
+            }
+            else if (cbOrszag.SelectedIndex != cbOrszag.Items.Count - 1 && cbEv.SelectedIndex == cbEv.Items.Count - 1)
+            {
+                szurtLista = szervezetek.Where(x => x.Country.ToString() == cbOrszag.SelectedItem.ToString()).ToList();
+                dgAdatok.ItemsSource = szurtLista;
+                lblOsszesDolgozo.Content = szurtLista.Sum(x => x.EmployeesNumber);
             }
             else if (cbEv.SelectedIndex != -1 || cbEv.SelectedIndex == cbEv.Items.Count - 1)
             {

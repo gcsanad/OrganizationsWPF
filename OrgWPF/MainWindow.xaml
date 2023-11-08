@@ -46,11 +46,9 @@
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Label Content="Ország:" VerticalAlignment="Center" Margin="80 0 0 0"/>
-            <ComboBox x:Name="cbOrszag" Width="130" Margin="0 10 10 10" SelectionChanged="cbOrszag_SelectionChanged">
-                
-            </ComboBox>
+            <ComboBox x:Name="cbOrszag" Width="130" Margin="0 10 10 10" SelectionChanged="cbOrszag_SelectionChanged" IsEditable="False" IsReadOnly="True" Text="Minden ország"></ComboBox>
             <Label Content="Év:" VerticalAlignment="Center" Margin="210 0 0 0"/>
-            <ComboBox x:Name="cbEv" Width="130" Margin="0 10 10 10" SelectionChanged="cbEv_SelectionChanged">
+            <ComboBox x:Name="cbEv" Width="130" Margin="0 10 10 10" SelectionChanged="cbEv_SelectionChanged"  IsEditable="False" IsReadOnly="True" Text="Minden ország">
                 
             </ComboBox>
         </StackPanel>

@@ -39,7 +39,7 @@
                 <DataGridTextColumn Header="Alkalmazottak száma"
                                     Width="120"
                                     Binding="{Binding EmployeesNumber, Mode=OneWay}"/>
-                <DataGridTextColumn Header="BigOrg"
+                <DataGridCheckBoxColumn Header="BigOrg"
                                     Width="120"
                                     Binding="{Binding BigOrg, Mode=OneWay}"/>
             </DataGrid.Columns>
@@ -47,11 +47,11 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Label Content="Ország:" VerticalAlignment="Center" Margin="80 0 0 0"/>
             <ComboBox x:Name="cbOrszag" Width="130" Margin="0 10 10 10" SelectionChanged="cbOrszag_SelectionChanged">
-                <ComboBoxItem Content="Minden ország"></ComboBoxItem>
+                
             </ComboBox>
             <Label Content="Év:" VerticalAlignment="Center" Margin="210 0 0 0"/>
             <ComboBox x:Name="cbEv" Width="130" Margin="0 10 10 10" SelectionChanged="cbEv_SelectionChanged">
-                <ComboBoxItem Content="Minden év"></ComboBoxItem>
+                
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="2">
